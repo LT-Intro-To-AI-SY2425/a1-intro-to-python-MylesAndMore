@@ -14,7 +14,6 @@ check, if you do not complete the generative AI portion of the assignment.
 
 from typing import List, TypeVar
 
-
 def absolute(n: int) -> int:
     """Gives the absolute value of the passed in number. Cannot use the built in
     function `abs`.
@@ -25,7 +24,8 @@ def absolute(n: int) -> int:
     Returns:
         the absolute value of the passed in number
     """
-    raise NotImplementedError("absolute")
+    if n < 0:
+        return -n
 
 
 def factorial(n: int) -> int:
@@ -38,7 +38,12 @@ def factorial(n: int) -> int:
     Returns:
         factorial of the passed in number
     """
-    raise NotImplementedError("factorial")
+    if n <= 0:
+        raise ValueError("factorial is only defined for positive integers")
+    res = 1
+    for i in range(1, n + 1):
+        res *= i
+    return res
 
 
 T = TypeVar("T")
@@ -55,7 +60,10 @@ def every_other(lst: List[T]) -> List[T]:
     Returns:
         a list of every of other item in the original list starting with the first
     """
-    raise NotImplementedError("every_other")
+    list = []
+    for i in range(0, len(lst), 2):
+        list.append(lst[i])
+    return list
 
 
 def sum_list(lst: List[int]) -> int:
@@ -68,7 +76,10 @@ def sum_list(lst: List[int]) -> int:
     Returns:
         the sum of the passed in list
     """
-    raise NotImplementedError("sum_list")
+    sum = 0
+    for i in lst:
+        sum += i
+    return sum
 
 
 def mean(lst: List[int]) -> float:
@@ -80,7 +91,7 @@ def mean(lst: List[int]) -> float:
     Returns:
         the mean of the passed in list
     """
-    raise NotImplementedError("mean")
+    return sum_list(lst) / len(lst)
 
 
 def median(lst: List[int]) -> float:
@@ -95,7 +106,10 @@ def median(lst: List[int]) -> float:
     Returns:
         the median of the passed in list
     """
-    raise NotImplementedError("median")
+    if len(lst) % 2 == 0:
+        return (lst[len(lst) // 2] + lst[len(lst) // 2 - 1]) / 2
+    else:
+        return lst[len(lst) // 2]
 
 
 def duck_duck_goose(lst: List[str]) -> List[str]:
@@ -117,7 +131,13 @@ def duck_duck_goose(lst: List[str]) -> List[str]:
     Returns:
         the resulting list after playing duck duck goose
     """
-    raise NotImplementedError("duck_duck_goose")
+    if len(lst) < 3:
+        raise ValueError("list must have at least 3 names")
+    i = 0
+    while len(lst) > 2:
+        i = (i + 2) % len(lst)
+        lst.pop(i)
+    return lst
 
 
 # this line causes the nested code to be skipped if the file is imported instead of run
